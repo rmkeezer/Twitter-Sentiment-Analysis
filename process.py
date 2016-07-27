@@ -31,8 +31,8 @@ for chunk in [tweets[i:i+chunksize] for i in range(0, len(tweets), chunksize)]:
     tweetCoord = []
     for tweet in chunk:
         words = tweet.split()
-        nrank = sum([1 if negwords.get(w) else 0 for w in words])
-        prank = sum([1 if poswords.get(w) else 0 for w in words])
+        nrank = sum([1 if negwords.get(w) else 0 for w in words])/(len(words)+1.0)
+        prank = sum([1 if poswords.get(w) else 0 for w in words])/(len(words)+1.0)
         tweetCoord.append((nrank, prank))
     tbx.append(st.mean([t[0] for t in tweetCoord]))
     tby.append(st.mean([t[1] for t in tweetCoord]))
@@ -57,8 +57,8 @@ for chunk in [tweets[i:i+chunksize] for i in range(0, len(tweets), chunksize)]:
     tweetCoord = []
     for tweet in chunk:
         words = tweet.split()
-        nrank = sum([1 if negwords.get(w) else 0 for w in words])
-        prank = sum([1 if poswords.get(w) else 0 for w in words])
+        nrank = sum([1 if negwords.get(w) else 0 for w in words])/(len(words)+1.0)
+        prank = sum([1 if poswords.get(w) else 0 for w in words])/(len(words)+1.0)
         tweetCoord.append((nrank, prank))
     tbx.append(st.mean([t[0] for t in tweetCoord]))
     tby.append(st.mean([t[1] for t in tweetCoord]))
