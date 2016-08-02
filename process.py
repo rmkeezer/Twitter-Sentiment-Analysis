@@ -31,6 +31,8 @@ for chunk in [tweets[i:i+chunksize] for i in range(0, len(tweets), chunksize)]:
     tweetCoord = []
     for tweet in chunk:
         words = tweet.split()
+        if 'RT' in words:
+        	continue
         nrank = sum([1 if negwords.get(w) else 0 for w in words])/(len(words)+1.0)
         prank = sum([1 if poswords.get(w) else 0 for w in words])/(len(words)+1.0)
         tweetCoord.append((nrank, prank))
@@ -43,7 +45,8 @@ f.write("\n".join([str(x) for x in list(zip(tbx,tby))]))
 f.close()
 
 print("Plotting...")
-plt.plot(tbx, tby, 'bo')
+plt.plot(tbx, tby, 'bx')
+plt.plot(st.mean(tbx), st.mean(tby), 'gs')
 
 f = open(sys.argv[3])
 tweets = f.read().split('\n')
@@ -57,6 +60,8 @@ for chunk in [tweets[i:i+chunksize] for i in range(0, len(tweets), chunksize)]:
     tweetCoord = []
     for tweet in chunk:
         words = tweet.split()
+        if 'RT' in words:
+        	continue
         nrank = sum([1 if negwords.get(w) else 0 for w in words])/(len(words)+1.0)
         prank = sum([1 if poswords.get(w) else 0 for w in words])/(len(words)+1.0)
         tweetCoord.append((nrank, prank))
@@ -69,7 +74,8 @@ f.write("\n".join([str(x) for x in list(zip(tbx,tby))]))
 f.close()
 
 print("Plotting...")
-plt.plot(tbx, tby, 'ro')
+plt.plot(tbx, tby, 'rx')
+plt.plot(st.mean(tbx), st.mean(tby), 'gs')
 plt.xlabel('negative word freq.')
 plt.ylabel('positive word freq.')
 plt.show()
